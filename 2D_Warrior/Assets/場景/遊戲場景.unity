@@ -103565,7 +103565,7 @@ GameObject:
   - component: {fileID: 1591996118}
   - component: {fileID: 1591996117}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: "\u62FC\u63A5\u5730\u5716"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103834,7 +103834,7 @@ GameObject:
   - component: {fileID: 1858624685}
   - component: {fileID: 1858624684}
   m_Layer: 0
-  m_Name: Gunner_Black_Idle_0
+  m_Name: "\u4EBA\u7269"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
