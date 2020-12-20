@@ -1,18 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class Car : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("高度"),Range(1,10)]
+    [Tooltip("公尺")]
+    public int height = 10;
+    [Header("重量"),Range(2.5f,10.5f)]
+    public float weight = 5.5f;
+    [Header("品牌")]
+    public string brand = "BMW";
+    [Header("是否有天窗")]
+    public bool hastopwindow = true ;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Color red = Color.red;
+    public Color Color;
+    public Vector2 Vector2;
+    public GameObject obj;
+    public Transform tra;
 }
