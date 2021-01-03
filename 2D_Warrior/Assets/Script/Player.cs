@@ -24,14 +24,31 @@ public class Player : MonoBehaviour
     private Rigidbody2D Rig;
     private Animator Ani;
     #endregion
+
+    public float  h ;
+
+    private void Update()
+    {
+        GetHorizontal();
+        Move();
+    }
+
+    private void Start()
+    {
+        Rig = GetComponent<Rigidbody2D>();
+    }
     #region 方法
+    private void GetHorizontal()
+    {
+        h = Input.GetAxis("Horizontal");
+    }
 
     /// <summary>
     /// 移動
     /// </summary>
     private void Move()
     {
-        
+        Rig.velocity =new Vector2 (h*Speed, Rig.velocity.y);
     }
 
     /// <summary>
