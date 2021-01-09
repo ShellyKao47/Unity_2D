@@ -16,16 +16,19 @@ public class Player : MonoBehaviour
     public Transform PointSpawn;
     [Header("子彈速度"), Range(0,5000)]
     public int BulletSpeed = 800;
-    [Header("開槍音效"), Tooltip("開槍音效")]
+    [Header("開槍音效")]
     public AudioClip BulletAud;
     [Header("血量"),Range(0, 200)]
     public float HP = 100f;
     private AudioSource Aud;
     private Rigidbody2D Rig;
     private Animator Ani;
-    #endregion
-
+  
+    /// <summary>
+    /// 取得玩家水平軸向值
+    /// </summary>
     public float  h ;
+    #endregion
 
     private void Update()
     {
@@ -35,11 +38,16 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        //剛體欄位=取得元件<剛體>()
         Rig = GetComponent<Rigidbody2D>();
     }
     #region 方法
+    /// <summary>
+    /// 取得水平軸向
+    /// </summary>
     private void GetHorizontal()
     {
+        //輸入.取得軸向("水平")
         h = Input.GetAxis("Horizontal");
     }
 
