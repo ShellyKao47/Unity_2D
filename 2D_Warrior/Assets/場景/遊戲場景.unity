@@ -1102,7 +1102,7 @@ GameObject:
   - component: {fileID: 575546312}
   - component: {fileID: 575546311}
   - component: {fileID: 575546310}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: "\u5730\u677F \u7246\u58C1"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119533,13 +119533,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 10
-  Jump: 100
+  Jump: 350
   OnFloor: 0
   Bullet: {fileID: 0}
   PointSpawn: {fileID: 0}
   BulletSpeed: 800
   BulletAud: {fileID: 0}
   HP: 100
+  offset: {x: 0.1, y: -0.85, z: 0}
+  radius: 0.15
   h: 0
 --- !u!70 &1858624688
 CapsuleCollider2D:

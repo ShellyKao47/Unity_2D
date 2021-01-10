@@ -4,9 +4,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     #region 欄位
-    [Header("移動速度"),Range(0,1000)]
+    [Header("移動速度"),Range(0,100)]
     public float Speed = 10.5f;
-    [Header("跳越高度"),Range(0,3000)]
+    [Header("跳越高度"),Range(0,1000)]
     public int Jump = 100;
     [Header("是否在地板上"),Tooltip("是否在地板上")]
     public bool OnFloor;
@@ -20,6 +20,11 @@ public class Player : MonoBehaviour
     public AudioClip BulletAud;
     [Header("血量"),Range(0, 200)]
     public float HP = 100f;
+    [Header("判定地面位置")]
+    public Vector3 offset;
+    [Header("判定地面半徑")]
+    public float radius = 0.3f;
+
     private AudioSource Aud;
     private Rigidbody2D Rig;
     private Animator Ani;
@@ -30,18 +35,31 @@ public class Player : MonoBehaviour
     public float  h ;
     #endregion
 
+    //在 Unity 內繪製圖示
+    private void OnDrawGizmos()
+    {
+        // 圖示 . 顏色 = 顏色
+        Gizmos.color = new Color(1, 0, 0, 0.35f);
+        //圖示 . 繪製球體(中心點，半徑)
+        Gizmos.DrawSphere(transform.position + offset, radius);
+    }
+
     private void Update()
     {
         GetHorizontal();
         Move();
+        Jumpz();
     }
 
     private void Start()
     {
         //剛體欄位=取得元件<剛體>()
         Rig = GetComponent<Rigidbody2D>();
+        Ani = GetComponent<Animator>();
     }
     #region 方法
+
+    
     /// <summary>
     /// 取得水平軸向
     /// </summary>
@@ -56,7 +74,22 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Move()
     {
+        //剛體.加速度=二維(水平*速度，原本加速度的Y)
         Rig.velocity =new Vector2 (h*Speed, Rig.velocity.y);
+        //如果 玩家 按下 D 或者 右鍵 就執行{內容}
+        if (Input.GetKeyDown(KeyCode.D)|| Input.GetKeyDown(KeyCode.RightArrow)) 
+        {
+            //transform 此腳本同一層的Transform元件
+            //Rotation 角度在程式是localEulerAngles
+            transform.localEulerAngles = Vector3.zero;
+        }
+
+        if (Input.GetKeyDown(KeyCode.A)|| Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            transform.localEulerAngles =new Vector3(0,180,0);
+        }
+        //設定跑步動畫 水平不等於0
+        Ani.SetBool("跑步開關", h != 0);
     }
 
     /// <summary>
@@ -64,7 +97,26 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Jumpz()
     {
+        //OnFloor 等於 OnFloor==true
+        //按下W 或 上 執行跳躍 並且 在地面上
+        if (OnFloor && Input.GetKeyDown(KeyCode.W)|| Input.GetKeyDown(KeyCode.UpArrow)) 
+        {
+            //AddForce = 增加推力
+            Rig.AddForce(new Vector2(0, Jump));
+            
+        }
+        //碰撞物件 = 2D 物理.覆蓋圖形(中心點，半徑，圖層)
+        // 1<<圖層
+        Collider2D hit = Physics2D.OverlapCircle(transform.position + offset, radius, 1 << 8);
 
+        if (hit)
+        {
+            OnFloor = true;
+        }
+        else
+        {
+            OnFloor = false;
+        }
     }
 
     /// <summary>
