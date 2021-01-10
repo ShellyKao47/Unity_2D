@@ -91,4 +91,9 @@ public class Car : MonoBehaviour
         //指定參數 參數:值
         OpenBrush("刷刷",speed:500);
     }
+
+    public float a = 0;
+    public float b = 100f;
 }
+
+

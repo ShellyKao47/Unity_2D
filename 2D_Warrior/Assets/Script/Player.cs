@@ -99,11 +99,12 @@ public class Player : MonoBehaviour
     {
         //OnFloor 等於 OnFloor==true
         //按下W 或 上 執行跳躍 並且 在地面上
-        if (OnFloor && Input.GetKeyDown(KeyCode.W)|| Input.GetKeyDown(KeyCode.UpArrow)) 
+        // onfloor || 兩邊都要
+        if (OnFloor && Input.GetKeyDown(KeyCode.W)|| OnFloor && Input.GetKeyDown(KeyCode.UpArrow)) 
         {
             //AddForce = 增加推力
             Rig.AddForce(new Vector2(0, Jump));
-            
+            Ani.SetTrigger("跳躍開關");
         }
         //碰撞物件 = 2D 物理.覆蓋圖形(中心點，半徑，圖層)
         // 1<<圖層
@@ -117,6 +118,11 @@ public class Player : MonoBehaviour
         {
             OnFloor = false;
         }
+
+        //動畫控制器.設定浮點數
+        Ani.SetFloat("跳躍",Rig.velocity.y);
+        Ani.SetBool("是否在地面上", OnFloor);
+        
     }
 
     /// <summary>
