@@ -44,11 +44,28 @@ public class Player : MonoBehaviour
         Gizmos.DrawSphere(transform.position + offset, radius);
     }
 
+    public AudioClip soundkey;
+
+    /// <summary>
+    /// 感應物件
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "鑰匙")
+        {
+            //刪除物件
+            Destroy(collision.gameObject);
+            Aud.PlayOneShot(soundkey, Random.Range(1.2f, 1.5f));
+        }
+    }
+
     private void Update()
     {
         GetHorizontal();
         Move();
         Jumpz();
+        Fire();
     }
 
     private void Start()
@@ -56,6 +73,7 @@ public class Player : MonoBehaviour
         //剛體欄位=取得元件<剛體>()
         Rig = GetComponent<Rigidbody2D>();
         Ani = GetComponent<Animator>();
+        Aud = GetComponent<AudioSource>();
     }
     #region 方法
 
@@ -130,7 +148,16 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Fire()
     {
+        //Mouse0 滑鼠左鍵
+        if (Input.GetKeyDown(KeyCode.Mouse0)) 
+        {
+            //子彈音效
+            Aud.PlayOneShot(BulletAud, Random.Range(1.2f, 1.5f));
+            //生成(物件，生成位置，生成角度)
+            GameObject temp = Instantiate(Bullet,PointSpawn.position,PointSpawn.rotation);
 
+            temp.GetComponent<Rigidbody2D>().AddForce(PointSpawn.right * BulletSpeed + PointSpawn.up * 100);
+        }
     }
 
     /// <summary>
