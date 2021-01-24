@@ -1,4 +1,4 @@
-﻿
+﻿using UnityEngine.UI;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -16,19 +16,27 @@ public class Player : MonoBehaviour
     public Transform PointSpawn;
     [Header("子彈速度"), Range(0,5000)]
     public int BulletSpeed = 800;
+    [Header("子彈傷害"), Range(0, 500)]
+    public float BulletDamage = 50;
     [Header("開槍音效")]
     public AudioClip BulletAud;
     [Header("血量"),Range(0, 200)]
-    public float HP = 100f;
+    public float hp = 100f;
     [Header("判定地面位置")]
     public Vector3 offset;
     [Header("判定地面半徑")]
     public float radius = 0.3f;
+    [Header("血條文字")]
+    public Text texthp;
+    [Header("血量圖片")]
+    public Image imghp;
+
 
     private AudioSource Aud;
     private Rigidbody2D Rig;
     private Animator Ani;
-  
+    private float hpMAX;
+
     /// <summary>
     /// 取得玩家水平軸向值
     /// </summary>
@@ -74,6 +82,7 @@ public class Player : MonoBehaviour
         Rig = GetComponent<Rigidbody2D>();
         Ani = GetComponent<Animator>();
         Aud = GetComponent<AudioSource>();
+        hpMAX = hp;
     }
     #region 方法
 
@@ -155,17 +164,22 @@ public class Player : MonoBehaviour
             Aud.PlayOneShot(BulletAud, Random.Range(1.2f, 1.5f));
             //生成(物件，生成位置，生成角度)
             GameObject temp = Instantiate(Bullet,PointSpawn.position,PointSpawn.rotation);
-
+            //暫存子彈 . 取得元件 <剛體> 
             temp.GetComponent<Rigidbody2D>().AddForce(PointSpawn.right * BulletSpeed + PointSpawn.up * 100);
+            //暫存子彈 . 添加元件 <子彈> () . 攻擊 = 子彈傷害
+            temp.AddComponent<Bullet>().attack = BulletDamage;
         }
     }
 
     /// <summary>
     /// 受傷
     /// </summary>
-    private void Hurt(float GetDamage)
+    public void Hurt(float GetDamage)
     {
-
+        hp -= GetDamage;                   //遞減
+        texthp.text = hp.ToString();
+        imghp.fillAmount = hp / hpMAX;
+        if (hp <= 0) Dead();
     }
 
     /// <summary>
@@ -173,7 +187,10 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Dead()
     {
-
+        hp = 0;
+        texthp.text = 0.ToString();
+        Ani.SetBool("死亡開關", true);
+        enabled = false;
     }
     #endregion
 }

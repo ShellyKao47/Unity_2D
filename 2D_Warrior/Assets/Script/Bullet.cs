@@ -15,6 +15,8 @@ public class Bullet : MonoBehaviour
             //對 Boss 呼叫 Damage
             collision.gameObject.GetComponent<Boss>().Damage(attack);
         }
+        //刪除子彈
+        Destroy(gameObject);
     }
 
 }
