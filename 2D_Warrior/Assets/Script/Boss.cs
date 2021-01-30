@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI; //引用介面
+using UnityEngine.Events; //引用事件
 using System.Collections; //協同程序需要 
 
 [RequireComponent(typeof(AudioSource), typeof(Rigidbody2D), typeof(CapsuleCollider2D))]
@@ -25,7 +26,8 @@ public class Boss : MonoBehaviour
     public Vector3 offsetAttack;
     [Header("攻擊範圍大小")]
     public Vector3 sizeAttack;
-
+    [Header("死亡事件")]
+    public UnityEvent onDead;
 
     private Animator Ani;
     private AudioSource Aud;
@@ -46,6 +48,7 @@ public class Boss : MonoBehaviour
     }
     private void Update()
     {
+        if (Ani.GetBool("死亡開關")) return;
         Move();
     }
 
@@ -74,13 +77,14 @@ public class Boss : MonoBehaviour
     /// <param name="Dead"></param>
     private void Dead()
     {
+        onDead.Invoke();                                        //觸發 死亡 事件
+
         hp = 0;
         texthp.text = 0.ToString();
         Ani.SetBool("死亡開關", true);
         GetComponent<CapsuleCollider2D>().enabled = false;
         Rig.Sleep();                                            //剛體.睡著
         Rig.constraints = RigidbodyConstraints2D.FreezeAll;     //剛體.凍結 X,Y,Z
-        enabled = false;
     }
 
     private void Move()
