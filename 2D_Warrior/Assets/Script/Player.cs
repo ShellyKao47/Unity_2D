@@ -1,5 +1,6 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
+using System.Collections; //協同程序需要 
 
 public class Player : MonoBehaviour
 {
@@ -30,8 +31,10 @@ public class Player : MonoBehaviour
     public Text texthp;
     [Header("血量圖片")]
     public Image imghp;
+    [Header("死掉畫面")]
+    public GameObject GameOver;
 
-
+    private SpriteRenderer Spr;
     private AudioSource Aud;
     private Rigidbody2D Rig;
     private Animator Ani;
@@ -82,6 +85,8 @@ public class Player : MonoBehaviour
         Rig = GetComponent<Rigidbody2D>();
         Ani = GetComponent<Animator>();
         Aud = GetComponent<AudioSource>();
+        Spr = GetComponent<SpriteRenderer>();
+
         hpMAX = hp;
     }
     #region 方法
@@ -180,6 +185,22 @@ public class Player : MonoBehaviour
         texthp.text = hp.ToString();
         imghp.fillAmount = hp / hpMAX;
         if (hp <= 0) Dead();
+        StartCoroutine(HurtAni());
+    }
+
+    private IEnumerator HurtAni()
+    {
+        Color red = new Color(1, 0.1f, 0.1f);
+        float interval = 0.05f;
+
+        for (int i = 0; i < 5; i++)
+        {    
+            Spr.color = red;
+            yield return new WaitForSeconds(interval);
+            Spr.color = Color.white;
+            yield return new WaitForSeconds(interval);
+        }
+        
     }
 
     /// <summary>
@@ -187,8 +208,10 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Dead()
     {
+        GameOver.SetActive(true);
         hp = 0;
         texthp.text = 0.ToString();
+        Rig.Sleep();
         Ani.SetBool("死亡開關", true);
         enabled = false;
     }

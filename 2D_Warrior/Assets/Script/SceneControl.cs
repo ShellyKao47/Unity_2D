@@ -35,7 +35,7 @@ public class SceneControl : MonoBehaviour
     public void BackToMenu()
     {
         aud.PlayOneShot(soundclick,2);
-        Invoke("DelayStartGame", 1.5f);
+        Invoke("DelayBackToMenu", 1.5f);
     }
     /// <summary>
     /// 離開遊戲
@@ -43,7 +43,7 @@ public class SceneControl : MonoBehaviour
     public void QuitGame()
     {
         aud.PlayOneShot(soundclick,2);
-        Invoke("DelayStartGame", 1.5f);
+        Invoke("DelayQuitGame", 1.5f);
     }
     
     /// <summary>

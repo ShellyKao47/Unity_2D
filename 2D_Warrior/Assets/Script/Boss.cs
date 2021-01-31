@@ -36,6 +36,9 @@ public class Boss : MonoBehaviour
     private Player player;
     private float timer;
     private CameraControl2D cam;
+    private bool isSecond;
+    private ParticleSystem psSecond;
+
 
     private void Start()
     {
@@ -45,6 +48,7 @@ public class Boss : MonoBehaviour
         hpMAX = hp;
         player = FindObjectOfType<Player>();
         cam = FindObjectOfType<CameraControl2D>();
+        psSecond = GameObject.Find("BossRock").GetComponent<ParticleSystem>();
     }
     private void Update()
     {
@@ -56,6 +60,9 @@ public class Boss : MonoBehaviour
     {
         Gizmos.color = new Color(0, 1, 1, 0.5f);
         Gizmos.DrawCube(transform.position + transform.right*offsetAttack.x + transform.up * offsetAttack.y, sizeAttack);
+
+        Gizmos.color = new Color(1, 0, 0, 0.5f);
+        Gizmos.DrawSphere(transform.position, rangeatk);
     }
 
     /// <summary>
@@ -68,6 +75,12 @@ public class Boss : MonoBehaviour
         Ani.SetTrigger("受傷觸發");     //受傷動畫
         texthp.text = hp.ToString();
         imghp.fillAmount = hp / hpMAX;
+
+        if (hp <= hpMAX * 0.8)
+        {
+            isSecond = true;
+            rangeatk = 12;
+        }
         if (hp <= 0) Dead();
     }
 
@@ -89,6 +102,10 @@ public class Boss : MonoBehaviour
 
     private void Move()
     {
+        //受傷 攻擊 停止移動
+        AnimatorStateInfo info = Ani.GetCurrentAnimatorStateInfo(0);
+        if (info.IsName("香菇攻擊") || info.IsName("香菇受傷")) return;
+
         //三元運算子 布林值 ? 結果1 ： 結果2
         float y = transform.position.x >= player.transform.position.x ? 180 :0;
         transform.eulerAngles= new Vector3(0, y, 0);
@@ -133,5 +150,6 @@ public class Boss : MonoBehaviour
         Collider2D hit = Physics2D.OverlapBox(transform.position + transform.right * offsetAttack.x + transform.up * offsetAttack.y, sizeAttack, 0, 1 << 9);
         if (hit) player.Hurt(attack);
         StartCoroutine(cam.Shake());
+        if (isSecond) psSecond.Play();           
     }
 }
