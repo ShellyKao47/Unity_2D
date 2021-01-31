@@ -2,6 +2,7 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - Boss
+    - Bossap
     - Bossrock
     - CameraControl2D
     - Door
@@ -18,14 +19,6 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
-    UnityEditor.Graphs.dll:
-    - UnityEditor.Graphs.AnimationBlendTree.Graph
-    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
-    - UnityEditor.Graphs.AnimationStateMachine.Graph
-    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
-    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -90,37 +83,39 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11312}
     - Class: 114
-      Script: {instanceID: 11528}
+      Script: {instanceID: 11502}
     - Class: 114
-      Script: {instanceID: 11602}
+      Script: {instanceID: 11530}
     - Class: 114
-      Script: {instanceID: 11890}
+      Script: {instanceID: 11604}
     - Class: 114
-      Script: {instanceID: 12178}
+      Script: {instanceID: 11892}
     - Class: 114
-      Script: {instanceID: 12796}
+      Script: {instanceID: 12180}
     - Class: 114
-      Script: {instanceID: 13082}
+      Script: {instanceID: 12196}
     - Class: 114
-      Script: {instanceID: 13448}
+      Script: {instanceID: 12262}
     - Class: 114
-      Script: {instanceID: 13458}
+      Script: {instanceID: 12450}
     - Class: 114
-      Script: {instanceID: 13736}
+      Script: {instanceID: 12804}
     - Class: 114
-      Script: {instanceID: 13874}
+      Script: {instanceID: 13090}
     - Class: 114
-      Script: {instanceID: 13968}
+      Script: {instanceID: 13456}
     - Class: 114
-      Script: {instanceID: 14006}
+      Script: {instanceID: 13466}
     - Class: 114
-      Script: {instanceID: 29232}
+      Script: {instanceID: 13744}
     - Class: 114
-      Script: {instanceID: 31376}
+      Script: {instanceID: 13882}
     - Class: 114
-      Script: {instanceID: 47766}
+      Script: {instanceID: 13976}
     - Class: 114
-      Script: {instanceID: 52006}
+      Script: {instanceID: 14014}
+    - Class: 114
+      Script: {instanceID: 16728}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -193,21 +188,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11312}
     - Class: 114
-      Script: {instanceID: 11528}
+      Script: {instanceID: 11530}
     - Class: 114
-      Script: {instanceID: 11602}
+      Script: {instanceID: 11604}
     - Class: 114
-      Script: {instanceID: 12074}
+      Script: {instanceID: 12076}
     - Class: 114
-      Script: {instanceID: 12178}
+      Script: {instanceID: 12180}
     - Class: 114
-      Script: {instanceID: 12796}
+      Script: {instanceID: 12804}
     - Class: 114
-      Script: {instanceID: 13448}
+      Script: {instanceID: 13456}
     - Class: 114
-      Script: {instanceID: 13874}
+      Script: {instanceID: 13882}
     - Class: 114
-      Script: {instanceID: 13968}
+      Script: {instanceID: 13976}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -305,6 +300,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.XR.LegacyInputHelpers.dll
     namespaceName: UnityEngine.XR.LegacyInputHelpers
     className: ArmModel
+  - hash:
+      serializedVersion: 2
+      Hash: 09a896639342f9c28f75654fdb3e8967
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Bossrock
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -511,6 +512,12 @@ ScriptsOnlyBuild:
     className: ControlPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: 2122ad77b35f7f0129bab21633be2a24
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SoundManager
+  - hash:
+      serializedVersion: 2
       Hash: b8a5e8091ab0b8861d2add371082c5e0
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -529,6 +536,12 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameManager
+  - hash:
+      serializedVersion: 2
       Hash: 265cf27ba050d55ff33a8acab4ded6c0
     assemblyName: com.unity.multiplayer-hlapi.Runtime.dll
     namespaceName: UnityEngine.Networking
@@ -539,6 +552,12 @@ ScriptsOnlyBuild:
     assemblyName: com.unity.multiplayer-hlapi.Runtime.dll
     namespaceName: UnityEngine.Networking
     className: NetworkTransformVisualizer
+  - hash:
+      serializedVersion: 2
+      Hash: f528c17aab688120cc82544b5d96543a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TeleportMenager
   - hash:
       serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
@@ -895,30 +914,12 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: 2122ad77b35f7f0129bab21633be2a24
+      Hash: 69a5673cea0ae1d91581f1d385efe0e8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: SoundManager
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: GameManager
-  - hash:
-      serializedVersion: 2
-      Hash: 09a896639342f9c28f75654fdb3e8967
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Bossrock
-  - hash:
-      serializedVersion: 2
-      Hash: f528c17aab688120cc82544b5d96543a
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: TeleportMenager
+    className: Bossap
   platform: 20
   scenePathNames:
   - "Assets/\u5834\u666F/\u9078\u55AE.unity"
   - "Assets/\u5834\u666F/\u904A\u6232\u5834\u666F.unity"
-  playerPath: E:/Shelly/Web
+  playerPath: E:/Shelly/Unity_2D/Web
